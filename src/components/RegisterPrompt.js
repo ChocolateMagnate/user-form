@@ -1,11 +1,11 @@
 import React from "react"
-import {useHistory} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 
 export default function RegisterPrompt(props) {
-    const history = useHistory()
+    const navigate = useNavigate()
 
     return (<div className="prompt">
         <p>Don't have an account?</p>
-        <button onClick={() => history.push("/register")}>Register now</button>
+        <button onClick={() => navigate("/register")}>Register now</button>
     </div>)
 }

@@ -28,6 +28,5 @@ export default function RegisterForm() {
             password
         )}>Register</button>
     </form>
-    <LoginForm/>
     </div>)
 }

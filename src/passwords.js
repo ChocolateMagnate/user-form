@@ -39,7 +39,6 @@ export function generatePassword(password) {
 export async function requestLogin(email, password, name, phone) {
     if (!isValidName(name) || !isValidNumber(phone)) return false
     fetch('http://localhost:8080/login-user/' + email + "/" + password)
-        .then(() => {})
         .then(user => {return user})
         .catch(error => console.log(error))
 }

@@ -1,9 +1,11 @@
 import React, {useState} from "react"
 import {requestLogin} from "../passwords"
 import {useNavigate} from "react-router-dom"
+import LoginConclusion from "./LoginConclusion"
 
 export default function LoginForm(props) {
     const [user] = useState({})
+    const [loginStatus, setLoginStatus] = useState("null")
     const navigate = useNavigate()
     return (<form>
         <p>Your name: </p>
@@ -19,7 +21,9 @@ export default function LoginForm(props) {
         <button onClick={async () => { await requestLogin(
             user.email,
             user.password
-        ).then(() => {navigate("/home")})
-         .catch(err => console.error(err))}}>Login</button>
+        ).then(() => {setLoginStatus(true)})
+         .catch(err => {console.error(err);
+            setLoginStatus(false)})}}>Login</button>
+         <LoginConclusion loginStatus={loginStatus}/>
     </form>)
 }
