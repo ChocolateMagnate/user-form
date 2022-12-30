@@ -1,6 +1,5 @@
 import React, {useState} from "react"
-import {requestRegisterUser} from "../passwords"
-import LoginForm from "./LoginForm"
+import { register } from "../authentication"
 
 export default function RegisterForm() {
     const [name, setName] = useState("")
@@ -9,7 +8,8 @@ export default function RegisterForm() {
     const [phone, setPhone] = useState("")
     const [password, setPassword] = useState("")
 
-    return (<div><form>
+    //The form tag can't be used because it raises Firebase network rejection error.
+    return (<div>
         <p>Your name: </p>
         <input type="text" value={name} onChange={(event) => setName(event.target.value)}></input>
         <p>Your birthday:</p>
@@ -20,13 +20,9 @@ export default function RegisterForm() {
         <input type="tel" value={phone} onChange={(event) => setPhone(event.target.value)}></input>
         <p>Your password: </p>
         <input type="password" value={password} onChange={(event) => setPassword(event.target.value)}></input>
-        <button onClick={() => requestRegisterUser(
-            name,
-            birthday,
+        <button onClick={() => register(
             email,
-            phone,
             password
         )}>Register</button>
-    </form>
     </div>)
 }

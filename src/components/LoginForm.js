@@ -1,11 +1,10 @@
 import React, {useState} from "react"
-import {requestLogin} from "../passwords"
+import {login} from "../authentication"
 import {useNavigate} from "react-router-dom"
-import LoginConclusion from "./LoginConclusion"
+import Errors from "./Errors"
 
 export default function LoginForm(props) {
     const [user] = useState({})
-    const [loginStatus, setLoginStatus] = useState("null")
     const navigate = useNavigate()
     return (<form>
         <p>Your name: </p>
@@ -18,12 +17,14 @@ export default function LoginForm(props) {
         <input type="tel" value={user.phone}></input>
         <p>Your password: </p>
         <input type="password" value={user.password}></input>
-        <button onClick={async () => { await requestLogin(
+        <button onClick={() => { login(
             user.email,
-            user.password
-        ).then(() => {setLoginStatus(true)})
+            user.password, 
+            user.name,
+            user.phone
+        ).then(() => {navigate("/home")})
          .catch(err => {console.error(err);
-            setLoginStatus(false)})}}>Login</button>
-         <LoginConclusion loginStatus={loginStatus}/>
+            <Errors code="01"/> //Error code 01 is for login errors
+        })}}>Login</button>
     </form>)
 }

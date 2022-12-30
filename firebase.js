@@ -2,18 +2,22 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "@firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAShHVKUXYJnNHbs7kRfckAHxPraFMw7jI",
-  authDomain: "user-form-8ffd6.firebaseapp.com",
-  projectId: "user-form-8ffd6",
-  storageBucket: "user-form-8ffd6.appspot.com",
-  messagingSenderId: "763038897451",
-  appId: "1:763038897451:web:52dd73b058ace184c9216e",
-  measurementId: "G-027WK1F2SE"
+    apiKey: "AIzaSyAShHVKUXYJnNHbs7kRfckAHxPraFMw7jI",
+    authDomain: "user-form-8ffd6.firebaseapp.com",
+    databaseURL: "https://user-form-8ffd6-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "user-form-8ffd6",
+    storageBucket: "user-form-8ffd6.appspot.com",
+    messagingSenderId: "763038897451",
+    appId: "1:763038897451:web:52dd73b058ace184c9216e",
+    measurementId: "G-027WK1F2SE"
 };
 
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const firestore = getFirestore(app);
-export default firestore;
+const auth = getAuth(app);
+const firebase = {app, auth, analytics, firestore};
+export default firebase;
