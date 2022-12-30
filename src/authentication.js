@@ -43,9 +43,11 @@ function isValidNumber(number) {
  * @param {*} password The user's raw text password
  */
 export function login(email, password, name, number) {
-    if (!isValidName(name) || !isValidNumber(number)) return false
+    //if (!isValidName(name) || !isValidNumber(number)) return false
     const auth = getAuth()
-    signInWithEmailAndPassword(auth, email, password)
+    return signInWithEmailAndPassword(auth, email, password)
+        .then(userCredential => (userCredential))
+        .catch(err => { console.error(err) })
 }
 
 export function register(email, password) {

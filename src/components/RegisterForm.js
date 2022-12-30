@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 import { register } from "../authentication"
 
-export default function RegisterForm() {
+export default function RegisterForm(props) {
     const [name, setName] = useState("")
     const [birthday, setBirthday] = useState("")
     const [email, setEmail] = useState("")
@@ -9,6 +9,7 @@ export default function RegisterForm() {
     const [password, setPassword] = useState("")
 
     //The form tag can't be used because it raises Firebase network rejection error.
+    //https://stackoverflow.com/questions/38860900/firebase-project-results-in-auth-network-request-failed-error-on-login
     return (<div>
         <p>Your name: </p>
         <input type="text" value={name} onChange={(event) => setName(event.target.value)}></input>

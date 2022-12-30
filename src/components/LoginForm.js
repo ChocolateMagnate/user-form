@@ -1,30 +1,39 @@
 import React, {useState} from "react"
 import {login} from "../authentication"
 import {useNavigate} from "react-router-dom"
-import Errors from "./Errors"
 
 export default function LoginForm(props) {
-    const [user] = useState({})
     const navigate = useNavigate()
-    return (<form>
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+    const [birthday, setBirthday] = useState("")
+    const [email, setEmail] = useState("")
+    const [phone, setPhone] = useState("")
+
+    return (<div>
         <p>Your name: </p>
-        <input type="text" value={user.name}></input>
+        <input type="text" value={username}
+            onChange={event => {setUsername(event.target.value)}}></input>
         <p>Your birthday:</p>
-        <input type="date" value={user.birthday}></input>
+        <input type="date" value={birthday}
+            onChange={event => {setBirthday(event.target.value)}}></input>
         <p>Your email: </p>
-        <input type="email" value={user.email}></input>
+        <input type="email" value={email}
+            onChange={event => {setEmail(event.target.value)}}></input>
         <p>Your phone number: </p>
-        <input type="tel" value={user.phone}></input>
+        <input type="tel" value={phone}
+            onChange={event => {setPhone(event.target.value)}}></input>
         <p>Your password: </p>
-        <input type="password" value={user.password}></input>
+        <input type="password" value={password}
+            onChange={event => {setPassword(event.target.value)}}></input>
         <button onClick={() => { login(
-            user.email,
-            user.password, 
-            user.name,
-            user.phone
-        ).then(() => {navigate("/home")})
-         .catch(err => {console.error(err);
-            <Errors code="01"/> //Error code 01 is for login errors
+            email,
+            password,
+            username,
+            phone
+        ).then(user => {
+            props.setUser(user)
+            navigate("/home", {user: user})
         })}}>Login</button>
-    </form>)
+    </div>)
 }
