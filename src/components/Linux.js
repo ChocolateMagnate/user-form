@@ -1,17 +1,21 @@
 //This is a generic page to view. Source: https://uk.wikipedia.org/wiki/Linux
 import React, {useState, useEffect} from "react"
+import Base from "./Base"
 
 export default function Linux(props) {
-    const url = "http://localhost:5000/linux"
+    const url = "http://localhost:8000/linux"
     const [counter, setCounter] = useState(1)
     //Increment user counter when the page is loaded:
     useEffect(() => {
+        if (!props.user) return
         fetch(url, {method: "GET"})
             .then(response => setCounter(response.text()))
             .catch(error => console.log(error))
         //Decrement user counter when the user leaves the page:
         window.addEventListener("unload", () => fetch(url, {method: "POST"}))
-    }, [])
+    }, [props.user])
+
+    if (!props.user) return (<div><Base/></div>)
     return (<div> 
         <h1>Linux</h1>
         <h2>Currently active users: {counter}</h2>

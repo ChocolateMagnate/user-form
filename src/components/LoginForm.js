@@ -33,6 +33,7 @@ export default function LoginForm(props) {
             phone
         ).then(user => {
             props.setUser(user)
+            console.log(user)
             navigate("/home", {user: user})
         })}}>Login</button>
     </div>)

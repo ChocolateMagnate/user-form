@@ -1,5 +1,8 @@
 import React from 'react'
 import { logout } from '../authentication'
+import { Link } from 'react-router-dom'
+import Base from './Base'
+
 /**
  * Finds out the amount of days remaining until the user's birthday.
  * @param {*} birthday The birthday of the user in the format "YYYY-MM-DD".
@@ -15,15 +18,23 @@ function countDaysUntilBirthday(birthday) {
 }
 
 export default function Home(props) {
-    
-    return (<>
+    const unlogged = (<div>
+        <h1>Log in to see this page!</h1>
+        <Base/>
+        </div>)
+    const logged = (<>
         <p>Hello there, {props.user.name}!</p>
         <p>
             Your next birthday is in {countDaysUntilBirthday(props.user.birthday)} days!
         </p>
+        <p>You may be interested in: </p>
+        <Link to="/discord">Discord</Link>
+        <Link to="/google">Google</Link>
+        <Link to="/linux">Linux</Link>
         <button onClick={() => {
             logout()
             props.setUser(null)
         }}>Logout</button>
     </>)
+    return (props.user ? logged : unlogged)
 }

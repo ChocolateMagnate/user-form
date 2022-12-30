@@ -1,16 +1,22 @@
 //This is a generic page to view. Source: https://uk.wikipedia.org/wiki/Discord
 import React, {useState, useEffect} from "react"
+import Base from "./Base"
 
 export default function Discord(props) {
-    const url = "http://localhost:5000/discord"
+    const url = "http://localhost:8000/discord"
     const [counter, setCounter] = useState(1)
+    //Increment user counter when the page is loaded:
     useEffect(() => {
+        if (!props.user) return
         fetch(url, {method: "GET"})
-            .then(response => setCounter(response.text()))
-            .catch(error => console.log(error))
+        .then(response => {return response.text()})
+        .then(response => console.log(response))
+        .catch(error => console.log(error))
          //Decrement user counter when the user leaves the page:
-         window.addEventListener("unload", () => fetch(url, {method: "POST"}))
-    }, [])
+        window.addEventListener("unload", () => fetch(url, {method: "POST"}))
+    }, [props.user])
+
+    if (!props.user) return (<div><Base/></div>)
     return (<div>
         <h1>Discord</h1>
         <h2>Currently active users: {counter}</h2>
