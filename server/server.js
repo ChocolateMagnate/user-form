@@ -14,7 +14,7 @@ const corsOptions = {
     credentials: true,
   }
 
-app.use(cors(corsOptions))
+app.use(cors(corsOptions)) //The logs are used for server-side debugging.
 let googleCounter = 0, discordCounter = 0, linuxCounter = 0
 console.log(googleCounter, discordCounter, linuxCounter)
 

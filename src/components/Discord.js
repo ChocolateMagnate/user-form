@@ -1,10 +1,12 @@
 //This is a generic page to view. Source: https://uk.wikipedia.org/wiki/Discord
 import React, {useState, useEffect} from "react"
-import Base from "./Base"
+import useProtectedRoute from "../hooks/useProtectedRoute"
 
 export default function Discord(props) {
+    useProtectedRoute()
     const url = "http://localhost:8000/discord"
     const [counter, setCounter] = useState(1)
+
     //Increment user counter when the page is loaded:
     useEffect(() => {
         console.log("It's the use effect!")
@@ -18,12 +20,11 @@ export default function Discord(props) {
                 .then(response => {return response.text()})
                 .then(response => console.log(response))
                 .catch(error => console.log(error))
-            window.removeEventListener("unload", () => {})
+            window.removeEventListener("unload")
          }
         )
     }, [])
 
-    if (!props.user) return (<div><Base/></div>)
     return (<div>
         <h1>Discord</h1>
         <h2>Currently active users: {counter}</h2>

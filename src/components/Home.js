@@ -1,7 +1,7 @@
 import React from 'react'
+import useProtectedRoute from '../hooks/useProtectedRoute'
 import { logout } from '../authentication'
 import { Link } from 'react-router-dom'
-import Base from './Base'
 
 /**
  * Finds out the amount of days remaining until the user's birthday.
@@ -18,11 +18,9 @@ function countDaysUntilBirthday(birthday) {
 }
 
 export default function Home(props) {
-    const unlogged = (<div>
-        <h1>Log in to see this page!</h1>
-        <Base/>
-        </div>)
-    const logged = (<>
+    useProtectedRoute()
+
+    return (<>
         <p>Hello there, {props.user.name}!</p>
         <p>
             Your next birthday is in {countDaysUntilBirthday(props.user.birthday)} days!
@@ -36,5 +34,4 @@ export default function Home(props) {
             props.setUser(null)
         }}>Logout</button>
     </>)
-    return (props.user ? logged : unlogged)
 }

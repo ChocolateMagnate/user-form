@@ -1,10 +1,13 @@
 //This is a generic page to view. Source: https://uk.wikipedia.org/wiki/Google
 import React, {useState, useEffect} from "react"
+import useProtectedRoute from "../hooks/useProtectedRoute"
 import Base from "./Base"
 
 export default function Google(props) {
+    useProtectedRoute()
     const url = "http://localhost:5000/google"
     const [counter, setCounter] = useState(1)
+
     //Increment user counter when the page is loaded:
     useEffect(() => {
         console.log("It's the use effect!")
@@ -23,7 +26,6 @@ export default function Google(props) {
         )
     }, [])
 
-    if (!props.user) return (<div><Base/></div>)
     return (<div>
         <h1>Google</h1>
         <h2>Currently active users: {counter}</h2>
