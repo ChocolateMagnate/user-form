@@ -7,13 +7,21 @@ export default function Linux(props) {
     const [counter, setCounter] = useState(1)
     //Increment user counter when the page is loaded:
     useEffect(() => {
-        if (!props.user) return
+        console.log("It's the use effect!")
         fetch(url, {method: "GET"})
-            .then(response => setCounter(response.text()))
+            .then(response => {return response.text()})
+            .then(response => setCounter(response))
             .catch(error => console.log(error))
-        //Decrement user counter when the user leaves the page:
-        window.addEventListener("unload", () => fetch(url, {method: "POST"}))
-    }, [props.user])
+         //Decrement user counter when the user leaves the page:
+         window.addEventListener("unload", () => {
+            navigator.sendBeacon(url, {method: "POST"})
+                .then(response => {return response.text()})
+                .then(response => console.log(response))
+                .catch(error => console.log(error))
+            window.removeEventListener("unload", () => {})
+         }
+        )
+    }, [])
 
     if (!props.user) return (<div><Base/></div>)
     return (<div> 
