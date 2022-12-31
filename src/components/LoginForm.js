@@ -1,6 +1,7 @@
 import React, {useState} from "react"
 import {login} from "../authentication"
 import {useNavigate} from "react-router-dom"
+import "../styles.css"
 
 export default function LoginForm(props) {
     const navigate = useNavigate()
@@ -10,7 +11,7 @@ export default function LoginForm(props) {
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
 
-    return (<div>
+    return (<div className="form center">
         <p>Your name: </p>
         <input type="text" value={username}
             onChange={event => {setUsername(event.target.value)}}></input>
@@ -26,7 +27,7 @@ export default function LoginForm(props) {
         <p>Your password: </p>
         <input type="password" value={password}
             onChange={event => {setPassword(event.target.value)}}></input>
-        <button onClick={() => { login(
+        <button onClick={() => { props.setUser(login(
             email,
             password,
             username,
@@ -35,6 +36,6 @@ export default function LoginForm(props) {
             props.setUser(user)
             console.log(user)
             navigate("/home", {user: user})
-        })}}>Login</button>
+        }))}}>Login</button>
     </div>)
 }

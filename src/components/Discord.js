@@ -4,20 +4,20 @@ import useProtectedRoute from "../hooks/useProtectedRoute"
 
 export default function Discord(props) {
     useProtectedRoute()
-    const url = "http://localhost:8000/discord"
+    const url = "http://localhost:5000/discord"
     const [counter, setCounter] = useState(1)
 
     //Increment user counter when the page is loaded:
     useEffect(() => {
         console.log("It's the use effect!")
         fetch(url, {method: "GET"})
-            .then(response => {return response.text()})
+            .then(response => { return response.text() })
             .then(response => setCounter(response))
             .catch(error => console.log(error))
          //Decrement user counter when the user leaves the page:
          window.addEventListener("unload", () => {
             navigator.sendBeacon(url, {method: "POST"})
-                .then(response => {return response.text()})
+                .then(response => { return response.text() })
                 .then(response => console.log(response))
                 .catch(error => console.log(error))
             window.removeEventListener("unload")
@@ -25,9 +25,9 @@ export default function Discord(props) {
         )
     }, [])
 
-    return (<div>
-        <h1>Discord</h1>
-        <h2>Currently active users: {counter}</h2>
+    return (<div className="main">
+        <h1 className="center">Discord</h1>
+        <h2 className="center">Currently active users: {counter}</h2>
         <p>Discord — це платформа обміну миттєвими повідомленнями та цифрового
             розповсюдження інформації з функціями VoIP. Користувачі спілкуються за
             допомогою голосових дзвінків, відеочатів, текстових повідомлень, медіа

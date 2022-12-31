@@ -1,34 +1,34 @@
 //This is a generic page to view. Source: https://uk.wikipedia.org/wiki/Linux
-import React, {useState, useEffect} from "react"
+import React, { useState, useEffect } from "react"
 import useProtectedRoute from "../hooks/useProtectedRoute"
-import Base from "./Base"
+import "../styles.css"
 
 export default function Linux(props) {
     useProtectedRoute()
-    const url = "http://localhost:8000/linux"
+    const url = "http://localhost:5000/linux"
     const [counter, setCounter] = useState(1)
-    
+
     //Increment user counter when the page is loaded:
     useEffect(() => {
         console.log("It's the use effect!")
         fetch(url, {method: "GET"})
-            .then(response => {return response.text()})
+            .then(response => { return response.text() })
             .then(response => setCounter(response))
             .catch(error => console.log(error))
          //Decrement user counter when the user leaves the page:
          window.addEventListener("unload", () => {
             navigator.sendBeacon(url, {method: "POST"})
-                .then(response => {return response.text()})
+                .then(response => { return response.text() })
                 .then(response => console.log(response))
                 .catch(error => console.log(error))
-            window.removeEventListener("unload", () => {})
+            window.removeEventListener("unload")
          }
         )
     }, [])
 
-    return (<div> 
-        <h1>Linux</h1>
-        <h2>Currently active users: {counter}</h2>
+    return (<div className="main"> 
+        <h1 className="center">Linux</h1>
+        <h2 className="center">Currently active users: {counter}</h2>
         <p>Лі́нукс (англ. Linux, повна назва — GNU/Linux) — загальна назва UNIX-подібних
             операційних систем на основі однойменного ядра. Це один із найвидатніших
             прикладів розробки вільного (free) та відкритого (з відкритим кодом, open

@@ -1,7 +1,7 @@
 //This is a generic page to view. Source: https://uk.wikipedia.org/wiki/Google
 import React, {useState, useEffect} from "react"
 import useProtectedRoute from "../hooks/useProtectedRoute"
-import Base from "./Base"
+import "../styles.css"
 
 export default function Google(props) {
     useProtectedRoute()
@@ -12,23 +12,23 @@ export default function Google(props) {
     useEffect(() => {
         console.log("It's the use effect!")
         fetch(url, {method: "GET"})
-            .then(response => {return response.text()})
+            .then(response => { return response.text() })
             .then(response => setCounter(response))
             .catch(error => console.log(error))
          //Decrement user counter when the user leaves the page:
          window.addEventListener("unload", () => {
             navigator.sendBeacon(url, {method: "POST"})
-                .then(response => {return response.text()})
+                .then(response => { return response.text() })
                 .then(response => console.log(response))
                 .catch(error => console.log(error))
-            window.removeEventListener("unload", () => {})
+            window.removeEventListener("unload")
          }
         )
     }, [])
 
-    return (<div>
-        <h1>Google</h1>
-        <h2>Currently active users: {counter}</h2>
+    return (<div className="main">
+        <h1 className="center">Google</h1>
+        <h2 className="center">Currently active users: {counter}</h2>
         <p>Google, українською мовою ґуґл, англ. Google LLC (вимовляється [ˈɡuːɡəl]) —
             американська публічна транснаціональна корпорація, яку заснували 1998 року
             аспіранти Стенфордського університету Ларрі Пейдж і Сергій Брін.</p>
